@@ -4,10 +4,17 @@ class ApplicationController < ActionController::Base
   before_action :force_https
   before_action :capture_campaign_params
   before_action :authenticate
+  before_action :basic_auth
 
   helper_method :current_user, :signed_in?
 
   private
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |user, password|
+      [user, password].join(':') == ENV['BASIC_AUTH']
+    end
+  end
 
   def force_https
     if ENV['ENABLE_HTTPS'] == 'yes'

@@ -4,7 +4,7 @@ class ActivationsController < ApplicationController
 
   respond_to :json
 
-  before_action :check_repo_plan
+  # before_action :check_repo_plan
 
   def create
     if activator.activate
@@ -18,11 +18,11 @@ class ActivationsController < ApplicationController
 
   private
 
-  def check_repo_plan
-    if repo.plan_price > 0
-      raise CannotActivatePaidRepo
-    end
-  end
+  # def check_repo_plan
+  #   if repo.plan_price > 0
+  #     raise CannotActivatePaidRepo
+  #   end
+  # end
 
   def activator
     RepoActivator.new(repo: repo, github_token: github_token)

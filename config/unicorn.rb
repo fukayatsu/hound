@@ -3,6 +3,7 @@ timeout (ENV["UNICORN_TIMEOUT"] || 15).to_i
 preload_app true
 
 before_fork do |server, worker|
+  @resque_pid ||= spawn("env TERM_CHILD=1 RESQUE_TERM_TIMEOUT=8 bundle exec rake resque:work")
   Signal.trap 'TERM' do
     puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
     Process.kill 'QUIT', Process.pid

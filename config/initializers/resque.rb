@@ -3,8 +3,12 @@ require 'resque-retry'
 require 'resque-sentry'
 require 'resque/failure/redis'
 
+if ENV["REDISTOGO_URL"]
+  Resque.redis = Redis.new(url: ENV["REDISTOGO_URL"], thread_safe: true)
+end
+
 Resque::Server.use(Rack::Auth::Basic) do |user, password|
-  password == ENV['RESQUE_ADMIN_PASSWORD']
+  [user, password].join(':') == ENV['BASIC_AUTH']
 end
 
 Resque::Failure::Sentry.logger = 'resque'
