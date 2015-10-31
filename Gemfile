@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.2.0"
+ruby "2.2.3"
 
 gem "active_model_serializers", "0.8.3"
 gem "analytics-ruby", "~> 2.0.0", require: "segment/analytics"
@@ -26,7 +26,7 @@ gem "responders", "~> 2.0"
 gem "resque", "~> 1.22.0"
 gem "resque-retry"
 gem "resque-sentry"
-gem "rubocop", "0.25.0"
+gem "rubocop"
 gem "sass-rails"
 gem "scss-lint", require: false
 gem "sentry-raven"
